@@ -1,4 +1,3 @@
-cat << 'HEREDOC' > /home/claude/zencode_fixed.html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -226,26 +225,62 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
 .clash-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(201,107,90,0.12);border:1px solid rgba(201,107,90,0.35);border-radius:4px;padding:3px 10px;font-family:'Noto Sans SC',sans-serif;font-size:0.68rem;color:#D98B7A;letter-spacing:0.08em;margin-left:8px;vertical-align:middle}
 
 @media(max-width:768px){
-  .top-bar{padding:0 14px}
-  .birth-bar{flex-direction:column;gap:5px;padding:12px 16px;border-radius:10px}
+  /* 基础容器与排版空间释放 */
+  .container{padding:0 16px 100px}
+  .section{padding:56px 0}
+  .sec-hd{flex-direction:column;gap:12px;margin-bottom:32px}
+  .sec-num{font-size:2.4rem;padding-top:0}
+  .sec-ti{font-size:1.15rem;line-height:1.5}
+  .sec-en{letter-spacing:0.2em}
+  .sec-intro{font-size:0.88rem;margin-top:8px}
+
+  /* 顶部与 Hero 区域 */
+  .top-bar{padding:0 16px;height:48px}
+  .hero{padding:70px 0 30px}
+  .hero-tag{font-size:0.55rem;letter-spacing:0.2em;gap:8px}
+  .hero-name-row{font-size:1rem;letter-spacing:0.15em}
+  .birth-bar{flex-direction:column;gap:8px;padding:16px;border-radius:12px;width:100%;margin-bottom:32px}
   .birth-bar .dot{display:none}
-  .pillars{gap:4px;flex-wrap:wrap}
-  .pillar{padding:16px 10px;min-width:46%}
-  .p-tg,.p-dz{font-size:2.1rem}
-  .card{padding:28px 20px}
+
+  /* 四柱排版强制 2x2 网格对齐 */
+  .pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:28px}
+  .pillar{padding:16px 0;min-width:auto;width:100%}
+  .p-tg,.p-dz{font-size:2.3rem}
+
+  /* 统一卡片内边距，优化手机屏效 */
+  .card,.oppo-box,.warn-box,.bone-wrap,.map-module,.chart-wrap,.wx-canvas-wrap{
+    padding:24px 16px;
+    margin:16px 0;
+  }
+
+  /* 五行力量条：魔法转换，不改HTML实现单列水平进度条 */
+  .wx-bars{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0}
+  .wx-bar-item{display:flex;flex-direction:row;align-items:center;justify-content:space-between;padding:12px 14px;text-align:left}
+  .wx-bar-label{font-size:1.2rem;margin-bottom:0;width:24px;flex-shrink:0}
+  .wx-bar-name{font-size:0.65rem;margin-bottom:0;width:55px;flex-shrink:0;margin-left:8px}
+  .wx-bar-track{flex-grow:1;margin:0 12px;height:5px}
+  .wx-bar-pct{font-size:0.65rem;margin-top:0;width:35px;text-align:right;flex-shrink:0}
+  
+  /* 五行生克图注强制两列 */
+  .wx-legend{justify-content:flex-start;gap:12px 8px}
+  .wx-legend-item{width:calc(50% - 4px)}
+
+  /* 文本密集区强制单列 */
+  .ss-grid,.romance-diagram,.wealth-levels,.liunian-grid{grid-template-columns:1fr}
+  .yun-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  
+  /* 财富层级处理 */
+  .wealth-tier{flex-direction:column;border-radius:8px}
+  .wealth-tier-bar{width:100%;height:6px;background:linear-gradient(90deg,var(--metal) 0%,var(--p) 50%,var(--water) 100%)}
+  .wealth-tier-body{padding:24px 16px}
+
+  /* 其他控件细节 */
   .audio-hint{display:none}
-  .yun-grid{grid-template-columns:repeat(2,1fr)}
-  .ss-grid,.romance-diagram{grid-template-columns:1fr}
-  .oppo-box,.warn-box{padding:26px 20px}
-  .wx-bars{grid-template-columns:repeat(5,1fr);gap:6px}
-  .wx-bar-item{padding:14px 8px}
-  .wealth-levels{grid-template-columns:1fr}
-  .wealth-tier{flex-direction:column}
-  .wealth-tier-bar{width:100%;height:4px;background:linear-gradient(90deg,var(--metal) 0%,var(--p) 50%,var(--water) 100%)}
-  .bone-wrap{flex-direction:column;gap:20px;text-align:center;padding:28px 20px}
-  .map-module{grid-template-columns:1fr;padding:26px 20px}
-  .liunian-grid{grid-template-columns:1fr 1fr}
-  .dayun-info-bar{gap:12px}
+  .bone-wrap{flex-direction:column;gap:16px;text-align:center}
+  .dayun-info-bar{flex-direction:column;align-items:flex-start;gap:10px;padding:16px}
+  .verdict{padding:80px 16px 60px}
+  .verdict-kw{font-size:3.2rem;margin-bottom:28px}
+  .verdict-body{font-size:0.95rem;line-height:2.2}
 }
 </style>
 </head>
@@ -325,7 +360,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 壹：源流格局 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">壹</div>
@@ -434,7 +468,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 贰：地支冲克 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">贰</div>
@@ -463,7 +496,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 叁：十神心理 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">叁</div>
@@ -492,7 +524,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 肆：事业 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">肆</div>
@@ -535,7 +566,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 伍：感情 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">伍</div>
@@ -575,7 +605,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 陆：财富 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">陆</div>
@@ -613,7 +642,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 柒：大运流年 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">柒</div>
@@ -624,7 +652,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
     </div>
   </div>
 
-  <!-- 起运信息条 -->
   <div class="dayun-info-bar">
     <div class="di-item">
       <span class="di-label">行运推算</span>
@@ -735,7 +762,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 捌：神煞 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">捌</div>
@@ -765,7 +791,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 玖：健康 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">玖</div>
@@ -794,7 +819,6 @@ html,body{background:var(--bg);color:var(--text);font-family:'Noto Serif SC',ser
   </div>
 </section>
 
-<!-- ══ 拾：地理 ══ -->
 <section class="section">
   <div class="sec-hd">
     <div class="sec-num">拾</div>
